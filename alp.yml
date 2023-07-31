@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  ilk calisma
+  
+Resources:
+  MyInstance:
+   Type: AWS::EC2::Instance
+   Properties: 
+      ImageId: ami-0715c1897453cabd1
+      InstanceType: t2.micro
+      KeyName: alparslan-yeni-pair
+      SecurityGroups: 
+        - !Ref SecGroup
+      Tags: 
+        - Key: Name 
+          Value: MyInstance
+
+      UserData: 
+        Fn::Base64: |
+          #!/bin/bash
+          dnf update -y
+          dnf install httpd -y  
+          dnf install git -y
+          systemctl start httpd
+          systemctl enable httpd
+       
+    
+  SecGroup:   
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: Alparslan
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+
+  
+

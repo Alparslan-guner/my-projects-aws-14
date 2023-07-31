@@ -1,241 +1,169 @@
-# Hands-on Flask-03-04: If-For structure, Handling Routes and Get-Post Methods
+# Project-001 : Roman Numerals Converter Application (Python Flask) deployed on AWS EC2 with Cloudformation and AWS CLI
+## Description
+The Roman Numerals Converter Application aims to convert the given number to the Roman numerals. The application is to be coded in Python and deployed as a web application with Flask on AWS Elastic Compute Cloud (EC2) Instance using AWS Cloudformation and CLI Services. 
 
-Purpose of the this hands-on training is to give the students introductory knowledge of how to handle forms.
+## Problem Statement
 
-![HTTP Methods in Flask](./http-methods-flask.png)
+![Project_001](Project_001_.png)
 
-## Learning Outcomes
+- Your company has recently started on a project that aims to be one of the most used unit converters and formulas website. Roman Numerals Converter is the part of the project. So you and your colleagues have started to work on the project.
 
-At the end of the this hands-on training, students will be able to;
-
-- build a simple web application with Flask framework.
-
-- understand the HTTP request-response cycle and structure of URL.
-
-- create routes (or views) with Flask.
-
-- serve static content and files using Flask.
-
-- serve dynamic content using the html templates.
-
-- write html templates using Jinja Templating Engine.
-
-- build a web application with Python Flask framework.
-
-- create if conditions and for loops with flask.
-
-- handle forms and GET-POST methods using the flask.
-
-- use git repo to manage the application versioning.
-
-
-## Outline
-
-- Part 1 - Getting to know routing and HTTP URLs.
-
-- Part 2 - Getting to know HTTP methods (GET & POST).
-
-- Part 3 - Write a Web Application using If conditions and for loops
-
-- Part 4 - Write a Web Application with Sample Routings and Templating on GitHub Repo
-
-- Part 5 - Learn to use GET and POST HTTP Method
-
-- Part 6 - Write a Sample Web Application with forms
-
-## Part 1 - Getting to know routing and HTTP URLs.
-
-HTTP (Hypertext Transfer Protocol) is a request-response protocol. A client on one side (web browser) asks or requests something from a server and the server on the other side sends a response to that client. When we open our browser and write down the URL (Uniform Resource Locator), we are requesting a resource from a server and the URL is the address of that resource. The structure of typical URL is as the following.
-
-![URL anatomy](./url-structure.png)
-
-The server responds to that request with an HTTP response message. Within the response, a status code element is a 3-digit integer defines the category of response as shown below.
-
-- 1xx -> Informational ---> It means the request was received and the process is continuing.
-
-- 2xx -> Success ---> It means the action was successfully received, understood, and accepted.
-
-- 3xx -> Redirection ---> It means further action must be taken in order to complete the request.
-
-- 4xx -> Client Error ---> It means the request contains incorrect syntax or cannot be fulfilled.
-
-- 5xx -> Server Error ---> It means the server failed to fulfill an apparently valid request.
-
-If you would learn those codes one by one. I can sent you a URL. You can also find different resources. 
-
-https://www.w3schools.com/tags/ref_httpmessages.asp
-
-## Part 2 - Getting to know HTTP methods (GET & POST)
-
-HTTP (Hypertext Transfer Protocol) is a request-response protocol. A client on one side (web browser) asks or requests something from a server and the server on the other side sends a response to that client. 
-
-When sending request, the client can send data with using different http methods like `GET, POST, PUT, HEAD, DELETE, PATCH, OPTIONS`, but the most common ones are `GET` and `POST`.
-
-![Get and Post Requests](./get-post-request.jpg)
-
-- HTTP `GET` method request;
-    
-    - used to request data from a specified resource.
-
-    - can be cached.
-
-    - remains in the browser history.
-
-    - can be bookmarked
-
-    - should never be used when dealing with sensitive data.
-
-    - has length limitation.
-
-    - only used to request data, not to modify it. 
-
-- HTTP `POST` method request;
-    
-    - never cached.
-
-    - does not remain in the browser history.
-
-    - can not be bookmarked
-
-    - can be used when dealing with sensitive data.
-
-    - has no length limitation.
-
-## Part 3 - Write a Web Application using If conditions and for loops
-
-- Copy `flask-03-handling-routes-and-if-for` within `my-repository` repo
-
-- Under `Flask_If_for_structure` folder within `flask-03-handling-routes-and-if-for` repo
-
-- Create python file named `app.py`
-
-```python
-# Import Flask modules
-
-# Create an object named app 
-
-# Create a function named head which shows the massage as "This is my first conditions experience" in `index.html` 
-# and assign to the route of ('/')
-
-# Create a function named header which prints numbers elements of list one by one in `index.html` 
-# and assign to the route of ('/')
-
-# run this app in debug mode on your local.
-
+- As a first step of the project, developers wrote a basic Python Flask program that converts the given number (between 1 and 3999) to the roman numerals. The program converts only from numbers to Roman numerals, not vice versa and during the conversion following notes should be taken into consideration.
+   
+```
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+- Symbol       Value
+- I             1
+- V             5
+- X             10
+- L             50
+- C             100
+- D             500
+- M             1000
+- For example, two is written as II in Roman numeral, just two one's added together. 
+Twelve is written as, XII, which is simply X + II. 
+The number twenty seven is written as XXVII, which is XX + V + II.
+- Roman numerals are usually written largest to smallest from left to right. 
+However, the numeral for four is not IIII. Instead, the number four is written as IV. 
+Because the one is before the five we subtract it making four. 
+The same principle applies to the number nine, which is written as IX. 
+There are six instances where subtraction is used:
+- I can be placed before V (5) and X (10) to make 4 and 9. 
+- X can be placed before L (50) and C (100) to make 40 and 90. 
+- C can be placed before D (500) and M (1000) to make 400 and 900.
 ```
 
-## Part 4 - Write a Web Application with Sample Routings and Templating on GitHub Repo
+- User input can be either integer or string, thus the input is checked for the followings,
 
-- Let's head over `flask-03-handling-routes` folder within `flask-03-handling-routes-and-if-for` repo
+   - The input should a decimal number within the range of 1 to 3999, inclusively.
+   
+   - If the input is less then 1 or greater then 3999, program warns the user using the given html template.
 
-- Create python file named `app.py`
+   - If the input is string and can not be converted to decimal number, program warns the user using the given html template.
 
-```python
-#Import Flask modules
-
-#Create an object named app 
-
-
-# Create a function named home which returns a string 'This is home page for no path, <h1> Welcome Home</h1>' 
-# and assign route of no path ('/')
-
-
-# Create a function named about which returns a formatted string '<h1>This is my about page </h1>' 
-# and assign to the static route of ('about')
-
-
-# Create a function named error which returns a formatted string '<h1>Either you encountered an error or you are not authorized.</h1>' 
-# and assign to the static route of ('error')
-
-
-# Create a function named admin which redirect the request to the error path 
-# and assign to the route of ('/admin')
-
-
-# Create a function named greet which return formatted inline html string 
-# and assign to the dynamic route of ('/<name>')
-
-
-# Create a function named greet_admin which redirect the request to the hello path with param of 'Master Admin!!!!' 
-# and assign to the route of ('/greet-admin')
-
-
-# Rewrite a function named greet which uses template file named `greet.html` under `templates` folder 
-# and assign to the dynamic route of ('/<name>'). 
-# Please find a template html file named `greet.html` which takes `name` as parameter under `templates` folder 
-
-
-# Create a function named list10 which creates a list counting from 1 to 10 within `list10.html` 
-# and assign to the route of ('/list10'). 
-# Please find a template html file named `list10.html` which shows a list counting from 1 to 10 under `templates` folder 
-
-
-# Create a function named evens which show the even numbers from 1 to 10 within `evens.html` 
-# and assign to the route of ('/evens'). 
-# Please find a template html file named `evens.html` which shows a list of even numbers from 1 to 10 under `templates` folder 
-
-
-# Add a statement to run the Flask application which can be reached from any host on port 80.
-```
-
-## Part 5 - Learn to use GET and POST HTTP Method
-
-- Go to `Flask_GET_POST_Methods` folder under the `flask-04-handling-forms-POST-GET-Methods` folder
-
-- Create file named `app.py`  here. 
-
-```python
-# Import Flask modules
-
-
-# Create an object named app
-
-
-# create a function named "lcm" which calculates a least common multiple values of two numbers. 
-
-
-# Create a function named `index` which uses template file named `index.html` 
-# send two numbers as template variable to the app.py and assign route of no path ('/') 
-
-
-# calculate sum of them using "lcm" function, then sent the result to the 
-# "result.hmtl" file and assign route of path ('/calc'). 
-# When the user comes directly "/calc" path, "Since this is a GET request, LCM has not been calculated" string returns to them with "result.html" file
-
-
-# Add a statement to run the Flask application which can be debugged.
+- Example for user inputs and respective outputs
 
 ```
+Input       Output
+-----       ------
+3           III
+9           IX
+58          LVIII
+1994        MCMXCIV
+-8          Warning with "Not Valid! Please enter a number between 1 and 3999, inclusively."
+4500        Warning with "Not Valid! Please enter a number between 1 and 3999, inclusively."
+Ten         Warning with "Not Valid! Please enter a number between 1 and 3999, inclusively."
+```
+   
+- As a DevOps, developer has given you app and template folder, you are requested to deploy your web environment using Python's Flask framework.
 
-## Part 6 - Write a Sample Web Application with forms
+- You are requested to push your program to the project repository on the Github and deploy your solution in the development environment on AWS EC2 Instance using AWS Cloudformation Service to showcase your project. In the development environment, you'll configure your Cloudformation template using the followings,
 
-- Go to `flask-04-handling-forms` within `flask-04-handling-forms-POST-GET-Methods` folder
+   - The application stack should be created with new AWS resources. 
 
-- Now, we'll write an application with form handling and save the complete code as `app-form-handling.py` under `flask-04-handling-forms` folder.
+   - The application stack should take the name of your Key Pair as a parameter from the user;
+   
+   - The application should run on Amazon Linux 2 EC2 Instance
 
-```python
-# Import Flask modules
+   - EC2 Instance type can be configured as `t2.micro`.
 
+   - Latest AWS Linux AMI should be used for template.
 
-# Create an object named app
+   - Instance launched by Cloudformation should be tagged `Web Server of StackName` 
 
+   - The Web Application should be accessible via web browser and terminal from anywhere.
 
-# Write a function named `greet` which uses template file named `greet.html` given under 
-# `templates` folder. it takes parameters from query string on URL, assign that parameter 
-# to the 'user' variable and sent that user name into the html file. If it doesn't have any parameter, warning massage is raised
+   - The Application files should be downloaded from Github repo and deployed on EC2 Instance using user data script within cloudformation template. 
 
+   - Roman Numerals Converter Application Website URL should be given as output by Cloudformation Service, after the stack created.
 
-# Write a function named `greet` which uses template file named `greet.html` given under `templates` folder
+- Lastly, try to deploy same infrastructure using AWS CLI commands to showcase your project. 
 
+## Project Skeleton 
 
-# Write a function named `login` which uses `GET` and `POST` methods, 
-# and template files named `login.html` and `secure.html` given under `templates` folder 
-# and assign to the static route of ('login')
-
-
-# Add a statement to run the Flask application which can be reached from any host on port 80.
-
-
-# app.run(host='0.0.0.0', port=80)
+```
+001-roman-numerals-converter (folder)
+|----cli.sh            # To be delivered by students (CLI commands)
+|----readme.md         # Given to the students (Definition of the project)          
+|----cfn-template.yml  # To be delivered by students (Cloudformation template)
+|----app.py            # Given to the students (Definition of the project)          
+|----templates
+        |----index.html  # Given to the students (HTML template)
+        |----result.html # Given to the students (HTML template)
 ```
 
+## Expected Outcome
+
+![Project 001 Snapshot](project-001-snapshot.png)
+
+### At the end of the project, following topics are to be covered;
+
+- Algorithm design
+
+- Programming with Python 
+
+- Web application programming with Python Flask Framework 
+
+- Bash scripting
+
+- AWS EC2 Service
+
+- AWS Security Groups Configuration
+
+- AWS Cloudformation Service
+
+- AWS Cloudformation Template Design
+
+- AWS CLI Service
+
+- AWS CLI commands, filters and queries
+
+- Git & Github for Version Control System
+
+### At the end of the project, students will be able to;
+
+- improve coding skills using iterables(dict), operators, for-loop, if statements and functions within Python
+
+- improve web programming skills using HTTP GET/POST methods, template formatting, importing packages within Python Flask Framework
+
+- improve bash scripting skills using `user data` section in Cloudformation to install and setup web application on EC2 Instance
+
+- configure AWS EC2 Instance and Security Groups.
+
+- configure Cloudformation template to use AWS Resources.
+
+- use AWS Cloudformation Service to launch stacks.
+
+- use AWS Cli to launch same stacks.
+
+- use git commands (push, pull, commit, add etc.) and Github as Version Control System.
+
+## Steps to Solution
+  
+- Step 1: Download or clone project definition from `clarusway-aws-workshop` repo on Github 
+
+- Step 2: Create project folder for local public repo on your pc
+
+- Step 3: Copy the Roman Numerals Converter Application in Python
+
+- Step 4: Prepare a cloudformation template to deploy your app on EC2 Instance
+
+- Step 5: Push your application into your own public repo on Github
+
+- Step 6: Deploy your application on AWS Cloud using Cloudformation template to showcase your app within your team.
+
+- Step 7: Deploy your application on AWS Cloud using AWS Cli to showcase your app within your team.
+
+## Notes
+
+- Customize the application by hard-coding your name for the `developer_name` variable within html templates.
+
+## Resources
+
+- [Python Flask Framework](https://flask.palletsprojects.com/en/1.1.x/quickstart/)
+
+- [Python Flask Example](https://realpython.com/flask-by-example-part-1-project-setup/)
+
+- [AWS Cloudformation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
+
+- [AWS Cli User Guide](https://docs.aws.amazon.com/cli/latest/)
